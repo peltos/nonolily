@@ -47,7 +47,6 @@ watch(
   () => props.full,
   () => {
     if(clicked.value) return;
-    console.log('updated');
     const fullRow = props.full[0];
     const fullColumn = props.full[1];
 
