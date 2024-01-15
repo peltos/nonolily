@@ -36,6 +36,8 @@
     <strong v-if="lives > 0" class="nono-tip">Left click = fill<br> Right click = cross </strong>
     <h2 class="nono-error" v-if="lives <= 0">Game over...</h2>
   </div>
+
+  <span class="absolute bottom-1 left-1 text-slate-500">Version {{ version }}</span>
 </template>
 
 <script setup>
@@ -57,10 +59,11 @@ let mouseDown = ref(0);
 let root = document.documentElement;
 let lives = ref(3);
 let greyOut = ref('');
+const version = import.meta.env.VITE_APP_VERSION
 
 function boardInit() {
 
-  if (localStorage.getItem('sizeSquare')) root.style.setProperty('--size-cell', localStorage.getItem('sizeSquare'));
+  if (localStorage.getItem('nonoSizeSquare')) root.style.setProperty('--size-cell', localStorage.getItem('nonoSizeSquare'));
 
   for (let i = 0; i < sizeBoardRows.value; i++) {
     for (let j = 0; j < sizeBoardColums.value; j++) {
@@ -142,8 +145,8 @@ function reduceCellCount(cellRow, cellColumn) {
 }
 
 function saveSizeBoard(width, height) {
-  localStorage.setItem('sizeBoardWidth', width);
-  localStorage.setItem('sizeBoardHeight', height);
+  localStorage.setItem('nonoSizeBoardWidth', width);
+  localStorage.setItem('nonoSizeBoardHeight', height);
 }
 
 document.body.onmousedown = () => mouseDown.value = 1;

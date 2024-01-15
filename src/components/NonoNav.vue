@@ -1,6 +1,6 @@
 <template>
   <!-- navigation -->
-  <div class="card flex justify-content-center">
+  <div class="card flex justify-content-center relative z-10">
     <Sidebar v-model:visible="visible" header="Settings">
       <div class="relative mt-2 rounded-md shadow-sm">
         <div>
@@ -72,13 +72,13 @@ let sizeBoardRows = 0;
 let sizeBoardColums = 0;
 let root = document.documentElement;
 
-if (localStorage.getItem('sizeBoardWidth')) {
-  sizeBoardColums = localStorage.getItem('sizeBoardWidth');
-  inputBoardWidth.value  = localStorage.getItem('sizeBoardWidth');
+if (localStorage.getItem('nonoSizeBoardWidth')) {
+  sizeBoardColums = localStorage.getItem('nonoSizeBoardWidth');
+  inputBoardWidth.value  = localStorage.getItem('nonoSizeBoardWidth');
 }
-if (localStorage.getItem('sizeBoardHeight')) {
-  sizeBoardRows = localStorage.getItem('sizeBoardHeight');
-  inputBoardHeight.value  = localStorage.getItem('sizeBoardHeight');
+if (localStorage.getItem('nonoSizeBoardHeight')) {
+  sizeBoardRows = localStorage.getItem('nonoSizeBoardHeight');
+  inputBoardHeight.value  = localStorage.getItem('nonoSizeBoardHeight');
 }
 
 resetBoard(inputBoardWidth.value, inputBoardHeight.value)
@@ -90,6 +90,14 @@ function resetBoard(width, height) {
   let boardlayoutRow = []
   let boardlayoutColumn = []
   let lives = 3
+
+  // reset width input if below 3 or above 20
+  if (inputBoardWidth.value > 20) inputBoardWidth.value = 20
+  if (inputBoardWidth.value < 3) inputBoardWidth.value = 3
+
+  // reset height input if below 3 or above 20
+  if (inputBoardHeight.value > 20) inputBoardHeight.value = 20
+  if (inputBoardHeight.value < 3) inputBoardHeight.value = 3
 
   // board width cant be below 3 and above 20
   if (inputBoardWidth.value <= 20) sizeBoardColums = inputBoardWidth.value;
@@ -103,14 +111,6 @@ function resetBoard(width, height) {
   if (inputBoardHeight.value >= 3) sizeBoardRows = inputBoardHeight.value;
   else sizeBoardRows = 3;
 
-  // reset width input if below 3 or above 20
-  if (inputBoardWidth.value > 20) inputBoardWidth.value = 20
-  if (inputBoardWidth.value < 3) inputBoardWidth.value = 3
-
-  // reset height input if below 3 or above 20
-  if (inputBoardHeight.value > 20) inputBoardHeight.value = 20
-  if (inputBoardHeight.value < 3) inputBoardHeight.value = 3
-
   emit('changeBoardSize', {
     sizeBoardRows,
     sizeBoardColums,
@@ -122,7 +122,7 @@ function resetBoard(width, height) {
 
 function saveSizeSquares(size) {
   root.style.setProperty('--size-cell', size);
-  localStorage.setItem('sizeSquare', size);
+  localStorage.setItem('nonoSizeSquare', size);
 }
 </script>
 
